@@ -2,6 +2,8 @@
 It is Deep Learning based project which predict the tumor in brain if tumor is presents then it gives types of tumor like glioma, minigioma, etc or if not present just said "No", it also given short description about the each tumor.
 # Introduction
 In order to examine tumors using magnetic resonance imaging (MRI), medical image segmentation is essential. For the purpose of locating tumors in MRI scans, several approaches have been proposed. This paper offers a thorough review and discusses the findings of previous research projects in this area. A powerful algorithm has been created to identify different types of brain tumors in MRI data. This model uses a 2D Convolutional Neural Network (CNN) for classification that was painstakingly created. With a remarkable overall rate of 91.3% attained for the identification of meningioma, glioma, and pituitary tumors, the data highlight its excellent accuracy. The dataset under consideration includes a thorough compiling of information on the three most common and clinically significant kinds of brain tumors. 
+- Image of tumors
+  
 ![image](https://github.com/user-attachments/assets/96b80b4c-6dab-46a5-981d-3a155694a36d) 
 
 ![image](https://github.com/user-attachments/assets/eb3ee0b1-ac75-4f47-a169-782ed25cecac) 
