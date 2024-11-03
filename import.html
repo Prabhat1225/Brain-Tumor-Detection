@@ -1,0 +1,189 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Brain Tumor Classification Using Deep Learning</title>
+  <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+  <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+  <link href="{{ url_for('static', filename='css/test.css') }}" rel="stylesheet">
+  <script src="{{ url_for('static', filename='js/newjs.js') }}" type="text/javascript"></script>
+  <link rel="icon" type="image/png" href="https://img.icons8.com/?size=100&id=44810&format=png&color=000000">
+</head>
+<style>
+  #container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: rgb(247, 208, 219);
+    color: black;
+    padding: 25px 45px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+  }
+
+  #banner {
+    display: block;
+    margin: 0 auto;
+  }
+
+  h2 {
+    font-family: Roboto;
+    font-size: 32px;
+    color: black;
+    text-align: center;
+    font-weight: normal;
+  }
+
+  h1 {
+    font-size: 40px;
+    font-family: Roboto;
+    font-weight: normal;
+    color: black;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgb(41, 41, 41);
+  }
+
+  a {
+    font-family: Roboto;
+    font-size: 32px;
+    color: black;
+    text-align: center;
+    font-weight: normal;
+  }
+
+  /* #result{
+        background-color: rgb(205, 250, 255);
+        padding: 15px;
+        margin: 15px;
+        border-radius: 10px;
+      } */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  @keyframes rotate {
+    100% {
+      transform: rotate(1turn);
+    }
+  }
+
+  #result {
+    position: relative;
+    z-index: 0;
+    width: 800px;
+    height: 300px;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+    font-weight: bold;
+
+    &::before {
+      content: '';
+      position: absolute;
+      z-index: -2;
+      left: -50%;
+      top: -50%;
+      width: 200%;
+      height: 200%;
+      background-color: #399953;
+      background-repeat: no-repeat;
+      background-size: 50% 50%, 50% 50%;
+      background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+      background-image: linear-gradient(#399953, #399953), linear-gradient(#fbb300, #fbb300), linear-gradient(#d53e33, #d53e33), linear-gradient(#377af5, #377af5);
+      animation: rotate 4s linear infinite;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      z-index: -1;
+      left: 6px;
+      top: 6px;
+      width: calc(100% - 12px);
+      height: calc(100% - 12px);
+      background: rgb(205 239 220);
+      border-radius: 5px;
+    }
+  }
+</style>
+
+<body style="background-color: rgb(178, 236, 217);">
+  <nav class="navbar navbar-light bg-dark">
+    <div class="container"
+      style="background-color: rgb(178, 181, 181);border-radius: 4px;justify-content: space-evenly;">
+      <a class="navbar-brand" href="#">Home</a>
+      <a class="navbar-brand" href="#">Hospital</a>
+      <a class="navbar-brand" href="#">Appointment</a>
+    </div>
+  </nav>
+
+  <div id="container">
+    <center>
+      <h1>Brain Tumor Detection</h1>
+      <br>
+      <h2>About Brain Tumor</h2>
+    </center>
+    <p>
+      A brain tumor is an abnormal growth of cells within the brain or its surrounding tissue. There are two main types
+      of brain tumors: primary and secondary.
+    <ol>
+      <li>Primary brain tumors start in the brain and tend to stay there.</li>
+      <li>Secondary brain tumors are more common. These cancers start somewhere else in your body and travel to the
+        brain.
+        Lung, breast, kidney, colon, and skin cancers are among the most common cancers that spread to your brain.</li>
+    </ol>
+    <p>Some common types of primary brain tumors include:</p>
+    </p>
+    <ol>
+      <li><b>Glioma Tumor -</b> A glioma tumor is a type of brain tumor that originates from glial cells in the brain or
+        spine.</li>
+      <li><b>Meningioma Tumor -</b> Meningioma is a type of tumor that grows from the protective membranes, called
+        meninges, which surround the brain and spinal cord. Meningiomas occur most commonly in older women.</li>
+      <li><b>Pituitary Tumor -</b> A pituitary tumor is an abnormal growth in the pituitary gland that can cause
+        hormonal imbalances and other health problems.</li>
+    </ol>
+    <br>
+    <h2>Upload MRI Here</h2><br>
+    <center>
+      <img id="banner" src="{{ url_for('static', filename='germ-cell-tumor-second-look-looping.gif') }}" height="320"
+        class="center">
+
+      <br>
+      <form id="upload-file" method="post" enctype="multipart/form-data" style="display: flex;justify-content: center;">
+        <input type="file" name="file" class="btn btn-secondary" id="imageUpload" accept=".png, .jpg, .jpeg">
+      </form><br><br>
+      <div class="image-section" style="display:none;">
+        <div style="display: flex;justify-content: space-evenly;">
+        <img id="ban" src="{{ url_for('static', filename='germ-cell-tumor-second-look-looping.gif') }}" height="320"
+          class="center">
+        <img id="imagePreview" class="img-responsive" src="#" style="width:300px;height:300px;" />
+      </div>
+      <br><br>
+        <div>
+          <button type="button" class="btn btn-info btn-lg " id="btn-predict">Predict!</button>
+        </div>
+      </div>
+      <div class="loader" style="display:none;"></div>
+
+      <br>
+
+      <h3 id="result">
+        <span> </span>
+      </h3>
+    </center>
+
+
+  </div>
+
+</body>
+
+
+</html>
